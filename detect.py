@@ -1,7 +1,7 @@
 import socket
 import keyboard
 
-target_ip = "Wifi-name"
+target_ip = "Kong"
 target_port = 4210
 
 udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

@@ -1,22 +1,35 @@
-import socket
+# Import neccesary modules
 import keyboard
+import sys
+from BlynkLib import *
+import time
 
-target_ip = "Kong"
-target_port = 4210
+# Blynk authentication token 
+'''
+#define BLYNK_TEMPLATE_ID "TMPL69_HKO5iy"
+#define BLYNK_TEMPLATE_NAME "Mahn automatic"
+#define BLYNK_AUTH_TOKEN "cFMczdEq_b1rYcfLezwHhQu2RzY9lJOG"
+'''
+BLYNK_AUTH = "cFMczdEq_b1rYcfLezwHhQu2RzY9lJOG"
 
-udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# Initialize Blynk
+blynk = Blynk(BLYNK_AUTH)
 
+# Start keyboard input program
 print("Program running.")
-print("Press Ctrl+C to exit")
+print("Press c to exit")
 
-try:
-    while True:
-        key_event = keyboard.read_event(suppress = True)
-        if key_event.event_type == keyboard.KEY_DOWN:
-            key_char = key_event.name
-            udp_socket.sendto(key_char.encode(), (target_ip, target_port))
+while True:
+    blynk.run()
+    key_event = keyboard.read_event(suppress = True)
+    if key_event.event_type == keyboard.KEY_DOWN:
+        key_char = key_event.name
+        if key_char == "c":
+            sys.exit()
+        print(f"{key_char} is being pressed")
+        try:
+           blynk.virtual_write(0, int(key_char)) 
+        except:
+            print("Can only input single digit integer")
+        
 
-except KeyboardInterrupt:
-    print("Program terminated by the user.")
-finally:
-    udp_socket.close()

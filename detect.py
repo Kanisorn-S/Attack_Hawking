@@ -2,7 +2,20 @@
 import keyboard
 import sys
 from BlynkLib import *
+from BlynkTimer import BlynkTimer
 import time
+
+def sendInput():
+    key_event = keyboard.read_event(suppress = True)
+    if key_event.event_type == keyboard.KEY_DOWN:
+        key_char = key_event.name
+        if key_char == "c":
+            sys.exit()
+        print(f"{key_char} is being pressed")
+        try:
+            blynk.virtual_write(0, int(key_char))
+        except:
+            print("Can only input single digit integer")
 
 # Blynk authentication token 
 '''
@@ -14,6 +27,9 @@ BLYNK_AUTH = "cFMczdEq_b1rYcfLezwHhQu2RzY9lJOG"
 
 # Initialize Blynk
 blynk = Blynk(BLYNK_AUTH)
+timer = BlynkTimer()
+
+timer.set_interval(1, sendInput)
 
 # Start keyboard input program
 print("Program running.")
@@ -21,15 +37,8 @@ print("Press c to exit")
 
 while True:
     blynk.run()
-    key_event = keyboard.read_event(suppress = True)
-    if key_event.event_type == keyboard.KEY_DOWN:
-        key_char = key_event.name
-        if key_char == "c":
-            sys.exit()
-        print(f"{key_char} is being pressed")
-        try:
-           blynk.virtual_write(0, int(key_char)) 
-        except:
-            print("Can only input single digit integer")
+    timer.run()
+    
+
         
 

@@ -1,6 +1,6 @@
-#define BLYNK_TEMPLATE_ID "TMPL69_HKO5iy"
-#define BLYNK_TEMPLATE_NAME "Mahn automatic"
-#define BLYNK_AUTH_TOKEN "cFMczdEq_b1rYcfLezwHhQu2RzY9lJOG"
+#define BLYNK_TEMPLATE_ID "TMPL695uDcRDn"
+#define BLYNK_TEMPLATE_NAME "Attack Hawking"
+#define BLYNK_AUTH_TOKEN "Y2K5GmGI1MxgwPn_oQJZFnHRGZO4B1JG"
 
 #define BLYNK_PRINT Serial
 
@@ -11,69 +11,90 @@
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 
-#define ssid "Passorn138_2.4G"
-#define pwd "kong2546"
+const char* ssid = "Passorn138_2.4G";
+const char* pwd = "kong2546";
 
 int input;
 
-BLYNK_WRITE(V0) {
+BLYNK_WRITE(V1) {
   input = param.asInt();
+  // Serial.print("Input value is ");
+  // Serial.println(input);
 }
-
 
 void setup() {
 
     Serial.begin(115200);
-    // WiFi.mode(WIFI_STA);
-    // WiFi.begin(ssid, pwd);
-    // Serial.println("\nConnecting");
-    // while (WiFi.status() != WL_CONNECTED) {
-    //     Serial.print(".");
-    //     delay(1000);
-    // }
-    // Serial.print("\nConnected to Wifi with IP: ");
-    // Serial.println(WiFi.localIP());
-
     Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pwd);
 }
 
 void loop() {
 
     Blynk.run();
-    Blynk.syncVirtual(V0);
+    Blynk.syncVirtual(V1);
+    // delay(1000);
 
-    // if (WiFi.status() != WL_CONNECTED){
-    //     Serial.print("Disconnected from Wifi");
-    // }
     Serial.print("Current input status is ");
     Serial.println(input);
-    sleep(2000);
+    if (input == 0) {
+      stop();
+    } else if (input == 1) {
+      forward();
+    } else if (input == 2) {
+      backward();
+    } else if (input == 3) {
+      left();
+    } else if (input == 4) {
+      right();
+    } else if (input == 5) {
+      cw();
+    } else if (input == 6) {
+      ccw();
+    } else if (input == 7) {
+      aimUp();
+    } else if (input == 8) {
+      aimDown();
+    } else if (input == 9) {
+      fire();
+    }
 }
 
-// void forward() {
-//     Serial.println("Moving forward");
-// }
+void stop() {
+    Serial.println("Stationary");
+}
 
-// void backward() {
-//     Serial.println("Moving backward");
-// }
+void forward() {
+    Serial.println("Moving forward");
+}
 
-// void left() {
-//     Serial.println("Moving to the left");
-// }
+void backward() {
+    Serial.println("Moving backward");
+}
 
-// void right() {
-//     Serial.println("Moving to the right");
-// }
+void left() {
+    Serial.println("Moving to the left");
+}
 
-// void cw() {
-//     Serial.println("Turning clockwise");
-// }
+void right() {
+    Serial.println("Moving to the right");
+}
 
-// void ccw() {
-//     Serial.println("Turning counter-clockwise");
-// }
+void cw() {
+    Serial.println("Turning clockwise");
+}
 
-// void fire() {
-//     Serial.println("Firing");
-// }
+void ccw() {
+    Serial.println("Turning counter-clockwise");
+}
+
+void aimUp() {
+    Serial.println("Aiming up");
+}
+
+void aimDown() {
+    Serial.println("Aiming down");
+}
+
+void fire() {
+    Serial.println("Firing");
+}

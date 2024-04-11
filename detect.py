@@ -13,17 +13,16 @@ def sendInput():
             sys.exit()
         print(f"{key_char} is being pressed")
         try:
-            blynk.virtual_write(0, int(key_char))
+            blynk.virtual_write(1, int(key_char))
         except:
             print("Can only input single digit integer")
 
 # Blynk authentication token 
 '''
-#define BLYNK_TEMPLATE_ID "TMPL69_HKO5iy"
-#define BLYNK_TEMPLATE_NAME "Mahn automatic"
-#define BLYNK_AUTH_TOKEN "cFMczdEq_b1rYcfLezwHhQu2RzY9lJOG"
+#define BLYNK_TEMPLATE_NAME "Attack Hawking"
+#define BLYNK_AUTH_TOKEN "Y2K5GmGI1MxgwPn_oQJZFnHRGZO4B1JG"
 '''
-BLYNK_AUTH = "cFMczdEq_b1rYcfLezwHhQu2RzY9lJOG"
+BLYNK_AUTH = "Y2K5GmGI1MxgwPn_oQJZFnHRGZO4B1JG"
 
 # Initialize Blynk
 blynk = Blynk(BLYNK_AUTH)

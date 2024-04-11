@@ -2,6 +2,7 @@
 #define BLYNK_TEMPLATE_NAME "Mahn automatic"
 #define BLYNK_AUTH_TOKEN "cFMczdEq_b1rYcfLezwHhQu2RzY9lJOG"
 
+#define BLYNK_PRINT Serial
 
 #include <SPI.h>
 #include <Wire.h>
@@ -23,15 +24,15 @@ BLYNK_WRITE(V0) {
 void setup() {
 
     Serial.begin(115200);
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, pwd);
-    Serial.println("\nConnecting");
-    while (WiFi.status() != WL_CONNECTED) {
-        Serial.print(".");
-        delay(1000);
-    }
-    Serial.print("\nConnected to Wifi with IP: ");
-    Serial.println(WiFi.localIP());
+    // WiFi.mode(WIFI_STA);
+    // WiFi.begin(ssid, pwd);
+    // Serial.println("\nConnecting");
+    // while (WiFi.status() != WL_CONNECTED) {
+    //     Serial.print(".");
+    //     delay(1000);
+    // }
+    // Serial.print("\nConnected to Wifi with IP: ");
+    // Serial.println(WiFi.localIP());
 
     Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pwd);
 }
@@ -41,9 +42,9 @@ void loop() {
     Blynk.run();
     Blynk.syncVirtual(V0);
 
-    if (WiFi.status() != WL_CONNECTED){
-        Serial.print("Disconnected from Wifi");
-    }
+    // if (WiFi.status() != WL_CONNECTED){
+    //     Serial.print("Disconnected from Wifi");
+    // }
     Serial.print("Current input status is ");
     Serial.println(input);
     sleep(2000);

@@ -10,21 +10,42 @@
 #include <Adafruit_SSD1306.h>
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
+#include <Adafruit_PWMServoDriver.h>
 
 const char* ssid = "Passorn138_2.4G";
 const char* pwd = "kong2546";
+const int front_left = 0;
+const int front_right = 1;
+const int back_left = 2;
+const int back_right = 3;
+const int gun = 4;
+const int servo_max_cw = 98; // full throtle clockwise 
+const int servo_min_cw = 350; // min throtle counter-clockwise 
+const int servo_max_ccw = 632; // full throtle counter-clockwise 
+const int servo_min_ccw = 380; // min throtle counter-clockwise 
+
+Adafruit_PWMServoDriver board = Adafruit_PWMServoDriver(0x40);
 
 int input;
 
 BLYNK_WRITE(V1) {
   input = param.asInt();
-  // Serial.print("Input value is ");
-  // Serial.println(input);
 }
 
-void setup() {
+void forward(float duration = 0);
+void backward(float duration = 0);
+// void left(float duration = 0);
+// void right(float duration = 0);
+// void cw(float duration = 0);
+// void ccw(float duration = 0);
+// void aimUp(float duration = 0);
+// void aimDown(float duration = 0);
+// void fire(float duration = 0);
 
+void setup() {
     Serial.begin(115200);
+    board.begin();
+    board.setPWMFreq(60);
     Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pwd);
 }
 
@@ -32,7 +53,6 @@ void loop() {
 
     Blynk.run();
     Blynk.syncVirtual(V1);
-    // delay(1000);
 
     Serial.print("Current input status is ");
     Serial.println(input);
@@ -61,14 +81,38 @@ void loop() {
 
 void stop() {
     Serial.println("Stationary");
+    board.setPWM(front_left, 0, 0);
+    board.setPWM(front_right, 0, 0);
 }
 
-void forward() {
+void forward(float duration) {
     Serial.println("Moving forward");
+    float start_time = millis();
+    board.setPWM(front_left, 0, servo_max_ccw);
+    board.setPWM(front_right, 0, servo_max_cw);
+    if (duration == 0) {
+      return;
+    }
+    while (millis() - start_time < duration) {
+      Serial.println(millis());
+      Serial.println("Moving forward");
+    }
+    stop();
 }
 
-void backward() {
+void backward(float duration) {
     Serial.println("Moving backward");
+    float start_time = millis();
+    board.setPWM(front_left, 0, servo_max_cw);
+    board.setPWM(front_right, 0, servo_max_ccw);
+    if (duration == 0) {
+      return;
+    }
+    while (millis() - start_time < duration) {
+      Serial.println(millis());
+      Serial.println("Moving backward");
+    }
+    stop();
 }
 
 void left() {

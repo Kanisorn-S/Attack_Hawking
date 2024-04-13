@@ -18,11 +18,13 @@ const int front_left = 0;
 const int front_right = 1;
 const int back_left = 2;
 const int back_right = 3;
-const int gun = 4;
+const int gun = 15;
 const int servo_max_cw = 98; // full throtle clockwise 
 const int servo_min_cw = 350; // min throtle counter-clockwise 
 const int servo_max_ccw = 632; // full throtle counter-clockwise 
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
+const int mini_cw = 60;
+const int mini_ccw = 1100;
 
 Adafruit_PWMServoDriver board = Adafruit_PWMServoDriver(0x40);
 
@@ -34,13 +36,12 @@ BLYNK_WRITE(V1) {
 
 void forward(float duration = 0);
 void backward(float duration = 0);
-// void left(float duration = 0);
-// void right(float duration = 0);
-// void cw(float duration = 0);
-// void ccw(float duration = 0);
-// void aimUp(float duration = 0);
-// void aimDown(float duration = 0);
-// void fire(float duration = 0);
+void left(float duration = 0);
+void right(float duration = 0);
+void cw(float duration = 0);
+void ccw(float duration = 0);
+void aimUp(float duration = 0);
+void aimDown(float duration = 0);
 
 void setup() {
     Serial.begin(115200);
@@ -115,28 +116,90 @@ void backward(float duration) {
     stop();
 }
 
-void left() {
+void left(float duration) {
     Serial.println("Moving to the left");
+    float start_time = millis();
+    board.setPWM(back_left, 0, mini_ccw);
+    if (duration == 0) {
+      return;
+    }
+    while (millis() - start_time < duration) {
+      Serial.println(millis());
+      Serial.println("Moving to the left");
+    }
+    board.setPWM(back_left, 0, 0);
 }
 
-void right() {
+void right(float duration) {
     Serial.println("Moving to the right");
+    float start_time = millis();
+    board.setPWM(back_right, 0, mini_cw);
+    if (duration == 0) {
+      return;
+    }
+    while (millis() - start_time < duration) {
+      Serial.println(millis());
+      Serial.println("Moving to the right");
+    }
+    board.setPWM(back_right, 0, 0);
 }
 
-void cw() {
+void cw(float duration) {
     Serial.println("Turning clockwise");
+    float start_time = millis();
+    board.setPWM(front_left, 0, servo_max_ccw);
+    board.setPWM(front_right, 0, servo_max_ccw);
+    if (duration == 0) {
+      return;
+    }
+    while (millis() - start_time < duration) {
+      Serial.println(millis());
+      Serial.println("Turning clockwise");
+    }
+    stop();
 }
 
-void ccw() {
+void ccw(float duration) {
     Serial.println("Turning counter-clockwise");
+    float start_time = millis();
+    board.setPWM(front_left, 0, servo_max_cw);
+    board.setPWM(front_right, 0, servo_max_cw);
+    if (duration == 0) {
+      return;
+    }
+    while (millis() - start_time < duration) {
+      Serial.println(millis());
+      Serial.println("Turning counter-clockwise");
+    }
+    stop();
 }
 
-void aimUp() {
+void aimUp(float duration) {
     Serial.println("Aiming up");
+    float start_time = millis();
+    board.setPWM(gun, 0, mini_ccw);
+    if (duration == 0) {
+      return;
+    }
+    while (millis() - start_time < duration) {
+      Serial.println(millis());
+      Serial.println("Aiming up");
+    }
+    board.setPWM(gun, 0, 0);
 }
 
-void aimDown() {
+void aimDown(float duration) {
     Serial.println("Aiming down");
+    float start_time = millis();
+    board.setPWM(gun, 0, mini_cw);
+    if (duration == 0) {
+      return;
+    }
+    while (millis() - start_time < duration) {
+      Serial.println(millis());
+      Serial.println("Aiming down");
+    }
+    board.setPWM(gun, 0, 0);
 }
 
 void fire() {

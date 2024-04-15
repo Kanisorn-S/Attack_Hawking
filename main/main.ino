@@ -25,6 +25,10 @@ const int servo_max_ccw = 632; // full throtle counter-clockwise
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
 const int mini_cw = 60;
 const int mini_ccw = 1100;
+const int left_forward = servo_max_ccw; 
+const int left_backward = servo_max_cw;
+const int right_forward = servo_max_cw;
+const int right_backward = servo_max_ccw;
 
 Adafruit_PWMServoDriver board = Adafruit_PWMServoDriver(0x40);
 
@@ -84,13 +88,17 @@ void stop() {
     Serial.println("Stationary");
     board.setPWM(front_left, 0, 0);
     board.setPWM(front_right, 0, 0);
+    board.setPWM(back_left, 0, 0);
+    board.setPWM(back_right, 0, 0);
 }
 
 void forward(float duration) {
     Serial.println("Moving forward");
     float start_time = millis();
-    board.setPWM(front_left, 0, servo_max_ccw);
-    board.setPWM(front_right, 0, servo_max_cw);
+    board.setPWM(front_left, 0, left_forward);
+    board.setPWM(front_right, 0, right_forward);
+    board.setPWM(back_left, 0, left_forward);
+    board.setPWM(back_right, 0, right_forward);
     if (duration == 0) {
       return;
     }
@@ -104,8 +112,10 @@ void forward(float duration) {
 void backward(float duration) {
     Serial.println("Moving backward");
     float start_time = millis();
-    board.setPWM(front_left, 0, servo_max_cw);
-    board.setPWM(front_right, 0, servo_max_ccw);
+    board.setPWM(front_left, 0, left_backward);
+    board.setPWM(front_right, 0, right_backward);
+    board.setPWM(back_left, 0, left_backward);
+    board.setPWM(back_right, 0, right_backward);
     if (duration == 0) {
       return;
     }
@@ -119,7 +129,10 @@ void backward(float duration) {
 void left(float duration) {
     Serial.println("Moving to the left");
     float start_time = millis();
-    board.setPWM(back_left, 0, mini_ccw);
+    board.setPWM(front_left, 0, left_backward);
+    board.setPWM(front_right, 0, right_forward);
+    board.setPWM(back_left, 0, left_forward);
+    board.setPWM(back_right, 0, right_backward);
     if (duration == 0) {
       return;
     }
@@ -133,7 +146,10 @@ void left(float duration) {
 void right(float duration) {
     Serial.println("Moving to the right");
     float start_time = millis();
-    board.setPWM(back_right, 0, mini_cw);
+    board.setPWM(front_left, 0, left_forward);
+    board.setPWM(front_right, 0, right_backward);
+    board.setPWM(back_left, 0, left_backward);
+    board.setPWM(back_right, 0, right_forward);
     if (duration == 0) {
       return;
     }
@@ -147,8 +163,10 @@ void right(float duration) {
 void cw(float duration) {
     Serial.println("Turning clockwise");
     float start_time = millis();
-    board.setPWM(front_left, 0, servo_max_ccw);
-    board.setPWM(front_right, 0, servo_max_ccw);
+    board.setPWM(front_left, 0, left_forward);
+    board.setPWM(front_right, 0, right_backward);
+    board.setPWM(back_left, 0, left_forward);
+    board.setPWM(back_right, 0, right_backward);
     if (duration == 0) {
       return;
     }
@@ -162,8 +180,10 @@ void cw(float duration) {
 void ccw(float duration) {
     Serial.println("Turning counter-clockwise");
     float start_time = millis();
-    board.setPWM(front_left, 0, servo_max_cw);
-    board.setPWM(front_right, 0, servo_max_cw);
+    board.setPWM(front_left, 0, left_backward);
+    board.setPWM(front_right, 0, right_forward);
+    board.setPWM(back_left, 0, left_backward);
+    board.setPWM(back_right, 0, right_forward);
     if (duration == 0) {
       return;
     }

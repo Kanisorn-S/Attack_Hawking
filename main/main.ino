@@ -8,8 +8,8 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <WiFi.h>
-#include <BlynkSimpleEsp32.h>
+#include <BlynkSimpleEsp8266.h>
+#include <ESP8266WiFi.h>
 #include <Adafruit_PWMServoDriver.h>
 
 const char* ssid = "Passorn138_2.4G";

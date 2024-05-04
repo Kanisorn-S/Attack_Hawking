@@ -28,6 +28,7 @@ void connectToWiFi() {
 }
 
 void setup() {
+    Serial.begin(115200);
     WiFi.mode(WIFI_STA);
     WiFi.disconnect();
     connectToWiFi();
@@ -50,7 +51,7 @@ void loop() {
         UDP.beginPacket(UDP.remoteIP(), UDP.remotePort());
         UDP.write(reply);
         UDP.endPacket();
-    }
+    } 
 }
 
 

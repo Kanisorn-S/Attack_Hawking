@@ -260,7 +260,9 @@ void fire(float duration) {
     digitalWrite(motor2Pin1, LOW);
     digitalWrite(motor2Pin2, HIGH);
     delay(duration);
+    digitalWrite(motor1Pin1, LOW);
     digitalWrite(motor1Pin2, LOW);
+    digitalWrite(motor2Pin1, LOW);
     digitalWrite(motor2Pin2, LOW);
 
 }

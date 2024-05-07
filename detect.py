@@ -12,7 +12,7 @@ def sendInput():
         if key_char == "c":
             sys.exit()
         print(f"{key_char} is being pressed")
-        try:1
+        try:
             blynk.virtual_write(1, int(key_char))
         except:
             print("Can only input single digit integer")

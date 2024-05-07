@@ -45,7 +45,6 @@ void left(float duration = 0);
 void right(float duration = 0);
 void cw(float duration = 0);
 void ccw(float duration = 0);
-void fire(float duration = 0);
 
 int motor1Pin1 = 14;
 int motor1Pin2 = 12;
@@ -89,7 +88,7 @@ void loop() {
     } else if (input == 8) {
       aimDown();
     } else if (input == 9) {
-      fire();
+      fire(5000);
     }
 }
 
@@ -223,8 +222,8 @@ void fire(float duration) {
     Serial.println("Firing");
     digitalWrite(motor1Pin1, LOW);
     digitalWrite(motor1Pin2, HIGH);
-    digitalWrite(motor2Pin1, LOW);
-    digitalWrite(motor2Pin2, HIGH);
+    digitalWrite(motor2Pin1, HIGH);
+    digitalWrite(motor2Pin2, LOW);
     delay(duration);
     digitalWrite(motor1Pin1, LOW);
     digitalWrite(motor1Pin2, LOW);

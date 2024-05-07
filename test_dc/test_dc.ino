@@ -13,37 +13,37 @@ void setup() {
 }
 
 void loop() {
-    Serial.println("Spin motor 1");
-    digitalWrite(motor1Pin1, LOW);
-    digitalWrite(motor1Pin2, HIGH);
-    delay(3000);
+    // Serial.println("Spin motor 1");
+    // digitalWrite(motor1Pin1, LOW);
+    // digitalWrite(motor1Pin2, HIGH);
+    // delay(3000);
 
-    Serial.println("Stopping motor 1");
-    digitalWrite(motor1Pin1, LOW);
-    digitalWrite(motor1Pin2, LOW);
-    delay(1000);
+    // Serial.println("Stopping motor 1");
+    // digitalWrite(motor1Pin1, LOW);
+    // digitalWrite(motor1Pin2, LOW);
+    // delay(1000);
 
-    Serial.println("Spin motor 2");
-    digitalWrite(motor2Pin1, LOW);
-    digitalWrite(motor2Pin2, HIGH);
-    delay(3000);
+    // Serial.println("Spin motor 2");
+    // digitalWrite(motor2Pin1, LOW);
+    // digitalWrite(motor2Pin2, HIGH);
+    // delay(3000);
 
-    Serial.println("Stopping motor 2");
-    digitalWrite(motor2Pin1, LOW);
-    digitalWrite(motor2Pin2, LOW);
-    delay(1000);
+    // Serial.println("Stopping motor 2");
+    // digitalWrite(motor2Pin1, LOW);
+    // digitalWrite(motor2Pin2, LOW);
+    // delay(1000);
 
     Serial.println("Spin both motors");
     digitalWrite(motor1Pin1, LOW);
     digitalWrite(motor1Pin2, HIGH);
-    digitalWrite(motor2Pin1, LOW);
-    digitalWrite(motor2Pin2, HIGH);
-    delay(3000);
+    digitalWrite(motor2Pin1, HIGH);
+    digitalWrite(motor2Pin2, LOW);
+    delay(5000);
 
     Serial.println("Stopping both motors");
     digitalWrite(motor1Pin1, LOW);
     digitalWrite(motor1Pin2, LOW);
     digitalWrite(motor2Pin1, LOW);
     digitalWrite(motor2Pin2, LOW);
-    delay(1000);
+    delay(3000);
 }

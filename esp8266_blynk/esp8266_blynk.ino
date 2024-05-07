@@ -8,7 +8,7 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <BlynkSimpleEsp32.h>
+#include <BlynkSimpleEsp8266.h>
 // #include <ESP32WiFi.h>
 #include <Adafruit_PWMServoDriver.h>
 
@@ -21,10 +21,11 @@ const int back_right = 3;
 const int gun = 15;
 const int servo_max_cw = 98; // full throtle clockwise 
 const int servo_min_cw = 350; // min throtle counter-clockwise 
-const int servo_max_ccw = 632; // full throtle counter-clockwise 
+const int servo_max_ccw = 630; // full throtle counter-clockwise 
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
-const int mini_cw = 60;
-const int mini_ccw = 1100;
+const int mini_min = 150;
+const int mini_max = 500;
+int servoState = mini_min;
 const int left_forward = servo_max_ccw; 
 const int left_backward = servo_max_cw;
 const int right_forward = servo_max_cw;
@@ -44,10 +45,18 @@ void left(float duration = 0);
 void right(float duration = 0);
 void cw(float duration = 0);
 void ccw(float duration = 0);
-void aimUp(float duration = 0);
-void aimDown(float duration = 0);
+void fire(float duration = 0);
+
+int motor1Pin1 = 14;
+int motor1Pin2 = 12;
+int motor2Pin1 = 13;
+int motor2Pin2 = 15;
 
 void setup() {
+    pinMode(motor1Pin1, OUTPUT);
+    pinMode(motor1Pin2, OUTPUT);
+    pinMode(motor2Pin1, OUTPUT);
+    pinMode(motor2Pin2, OUTPUT);
     Serial.begin(115200);
     board.begin();
     board.setPWMFreq(60);
@@ -194,34 +203,32 @@ void ccw(float duration) {
     stop();
 }
 
-void aimUp(float duration) {
+void aimUp() {
     Serial.println("Aiming up");
-    float start_time = millis();
-    board.setPWM(gun, 0, mini_ccw);
-    if (duration == 0) {
-      return;
+    if (servoState < mini_max) {
+      servoState++;
+      board.setPWM(gun, 0, servoState);
     }
-    while (millis() - start_time < duration) {
-      Serial.println(millis());
-      Serial.println("Aiming up");
-    }
-    board.setPWM(gun, 0, 0);
 }
 
-void aimDown(float duration) {
+void aimDown() {
     Serial.println("Aiming down");
-    float start_time = millis();
-    board.setPWM(gun, 0, mini_cw);
-    if (duration == 0) {
-      return;
+    if (servoState > mini_min) {
+      servoState--;
+      board.setPWM(gun, 0, servoState);
     }
-    while (millis() - start_time < duration) {
-      Serial.println(millis());
-      Serial.println("Aiming down");
-    }
-    board.setPWM(gun, 0, 0);
 }
 
-void fire() {
+void fire(float duration) {
     Serial.println("Firing");
+    digitalWrite(motor1Pin1, LOW);
+    digitalWrite(motor1Pin2, HIGH);
+    digitalWrite(motor2Pin1, LOW);
+    digitalWrite(motor2Pin2, HIGH);
+    delay(duration);
+    digitalWrite(motor1Pin1, LOW);
+    digitalWrite(motor1Pin2, LOW);
+    digitalWrite(motor2Pin1, LOW);
+    digitalWrite(motor2Pin2, LOW);
+
 }

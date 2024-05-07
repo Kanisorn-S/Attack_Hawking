@@ -87,9 +87,9 @@ void loop() {
         Serial.print("Input Key: ");
         Serial.println(receivedData);
         if (!strcmp(receivedData, "1")) {
-            stop();
+            pca.setPWM(0, 0, servo_max_cw);
         } else if (!strcmp(receivedData, "2")) {
-            forward(0);
+            forward(5000);
         } else if (!strcmp(receivedData, "2")) {
             backward(0);
         } else if (!strcmp(receivedData, "3")) {

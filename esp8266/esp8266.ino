@@ -18,8 +18,9 @@ const int servo_max_cw = 98; // full throtle clockwise
 const int servo_min_cw = 350; // min throtle counter-clockwise 
 const int servo_max_ccw = 632; // full throtle counter-clockwise 
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
-const int mini_cw = 60;
-const int mini_ccw = 1100;
+const int mini_min = 150;
+const int mini_max = 500;
+int servostate = mini_min;
 const int left_forward = servo_max_ccw; 
 const int left_backward = servo_max_cw;
 const int right_forward = servo_max_cw;
@@ -225,32 +226,20 @@ void ccw(float duration) {
     stop();
 }
 
-void aimUp(float duration) {
+void aimUp() {
     Serial.println("Aiming up");
-    float start_time = millis();
-    pca.setPWM(gun, 0, mini_ccw);
-    if (duration == 0) {
-      return;
+    if (servoState < mini_max) {
+      servoState++;
+      pca.setPWM(gun, 0, servoState);
     }
-    while (millis() - start_time < duration) {
-      Serial.println(millis());
-      Serial.println("Aiming up");
-    }
-    pca.setPWM(gun, 0, 0);
 }
 
-void aimDown(float duration) {
+void aimDown() {
     Serial.println("Aiming down");
-    float start_time = millis();
-    pca.setPWM(gun, 0, mini_cw);
-    if (duration == 0) {
-      return;
+    if (servoState > mini_min) {
+      servoState--;
+      pca.setPWM(gun, 0, servoState);
     }
-    while (millis() - start_time < duration) {
-      Serial.println(millis());
-      Serial.println("Aiming down");
-    }
-    pca.setPWM(gun, 0, 0);
 }
 
 void fire(float duration) {

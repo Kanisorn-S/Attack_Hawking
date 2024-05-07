@@ -2,7 +2,7 @@ import socket
 import keyboard
 import sys
 
-target_ip = "192.168.1.145"
+target_ip = "192.168.223.152"
 target_port = 4210
 
 udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

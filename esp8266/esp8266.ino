@@ -5,8 +5,8 @@
 #include <Adafruit_PWMServoDriver.h>
 
 
-#define ssid "Passorn138_2.4G"
-#define pwd "kong2546"
+#define ssid "Kong"
+#define pwd "12345567"
 #define UDP_PORT 4210
 
 const int front_left = 0;
@@ -16,11 +16,11 @@ const int back_right = 3;
 const int gun = 15;
 const int servo_max_cw = 98; // full throtle clockwise 
 const int servo_min_cw = 350; // min throtle counter-clockwise 
-const int servo_max_ccw = 632; // full throtle counter-clockwise 
+const int servo_max_ccw = 630; // full throtle counter-clockwise 
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
 const int mini_min = 150;
 const int mini_max = 500;
-int servostate = mini_min;
+int servoState = mini_min;
 const int left_forward = servo_max_ccw; 
 const int left_backward = servo_max_cw;
 const int right_forward = servo_max_cw;
@@ -34,8 +34,6 @@ void left(float duration = 0);
 void right(float duration = 0);
 void cw(float duration = 0);
 void ccw(float duration = 0);
-void aimUp(float duration = 0);
-void aimDown(float duration = 0);
 void fire(float duration = 0);
 
 int motor1Pin1 = 14;
@@ -69,6 +67,7 @@ void setup() {
     pinMode(motor2Pin1, OUTPUT);
     pinMode(motor2Pin2, OUTPUT);
     Serial.begin(115200);
+    WiFi.persistent(false);
     WiFi.mode(WIFI_STA);
     WiFi.disconnect();
     connectToWiFi();
@@ -87,26 +86,26 @@ void loop() {
         receivedData[packetSize] = '\0';
         Serial.print("Input Key: ");
         Serial.println(receivedData);
-        if (strcmp(receivedData, "0")) {
+        if (!strcmp(receivedData, "1")) {
             stop();
-        } else if (strcmp(receivedData, "1")) {
-            forward();
-        } else if (strcmp(receivedData, "2")) {
-            backward();
-        } else if (strcmp(receivedData, "3")) {
-            left();
-        } else if (strcmp(receivedData, "4")) {
-            right();
-        } else if (strcmp(receivedData, "5")) {
-            cw();
-        } else if (strcmp(receivedData, "6")) {
-            ccw();
-        } else if (strcmp(receivedData, "7")) {
+        } else if (!strcmp(receivedData, "2")) {
+            forward(0);
+        } else if (!strcmp(receivedData, "2")) {
+            backward(0);
+        } else if (!strcmp(receivedData, "3")) {
+            left(0);
+        } else if (!strcmp(receivedData, "4")) {
+            right(0);
+        } else if (!strcmp(receivedData, "5")) {
+            cw(0);
+        } else if (!strcmp(receivedData, "6")) {
+            ccw(0);
+        } else if (!strcmp(receivedData, "7")) {
             aimUp();
-        } else if (strcmp(receivedData, "8")) {
+        } else if (!strcmp(receivedData, "8")) {
             aimDown();
-        } else if (strcmp(receivedData, "9")) {
-            fire();
+        } else if (!strcmp(receivedData, "9")) {
+            fire(0);
         }
         UDP.beginPacket(UDP.remoteIP(), UDP.remotePort());
         UDP.write(reply);

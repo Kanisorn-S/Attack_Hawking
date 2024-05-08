@@ -57,6 +57,8 @@ void setup() {
     pinMode(motor2Pin1, OUTPUT);
     pinMode(motor2Pin2, OUTPUT);
     Serial.begin(115200);
+    Serial.println();
+    Serial.println("----------------------------------------------");
     board.begin();
     board.setPWMFreq(60);
     Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pwd);

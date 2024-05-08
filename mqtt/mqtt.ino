@@ -15,10 +15,6 @@ Adafruit_PWMServoDriver board = Adafruit_PWMServoDriver(0x40);
 
 WiFiClient espClient;
 PubSubClient client(espClient);
-unsigned long lastMsg = 0;
-#define MSG_BUFFER_SIZE (50)
-char msg[MSG_BUFFER_SIZE];
-int value = 0;
 
 void setup_wifi() {
     Serial.println();
@@ -50,8 +46,10 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
     Serial.println();
     if ((char)payload[0] == '1') {
+      Serial.println("Into if statement");
       board.setPWM(0, 0, 600);
     } else if ((char)payload[0] == '0') {
+      Serial.println("Into if statement");
       board.setPWM(0, 0, 0);
     }
 }

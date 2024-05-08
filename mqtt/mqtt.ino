@@ -1,9 +1,17 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
 
 const char* ssid = "Kong";
 const char* password = "12345567";
-const char* mqtt_server = "test.mosquitto.org";
+
+const char* mqtt_broker = "test.mosquitto.org";
+const char* topic = "carControl";
+const int mqtt_port = 1883;
+
+Adafruit_PWMServoDriver board = Adafruit_PWMServoDriver(0x40);
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -33,7 +41,7 @@ void setup_wifi() {
     Serial.println(WiFi.localIP());
 }
 
-void callback(char* topic, byte* payload, unsinged int length) {
+void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print("Message arrived [");
     Serial.print(topic);
     Serial.print("] ");
@@ -41,6 +49,11 @@ void callback(char* topic, byte* payload, unsinged int length) {
         Serial.print((char)payload[i]);
     }
     Serial.println();
+    if ((char)payload[0] == '1') {
+      board.setPWM(0, 0, 600);
+    } else if ((char)payload[0] == '0') {
+      board.setPWM(0, 0, 0);
+    }
 }
 
 void reconnect() {
@@ -65,7 +78,7 @@ void reconnect() {
 void setup() {
     Serial.begin(115200);
     setup_wifi();
-    client.setServer(mqtt_server, 1883);
+    client.setServer(mqtt_broker, mqtt_port);
     client.setCallback(callback);
 }
 

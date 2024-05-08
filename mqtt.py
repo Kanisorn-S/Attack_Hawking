@@ -8,7 +8,7 @@ print("Program running. ")
 print("Press C to exit")
 
 while True:
-    if client.connect("localhost", 1883, 60):
+    if client.connect("test.mosquitto.org", 1883, 60):
         print("Could not connect to MQTT Broker!")
         sys.exit(-1)
     

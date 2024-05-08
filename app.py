@@ -18,13 +18,12 @@ from BlynkTimer import BlynkTimer
 
 from utils import CvFpsCalc
 from model import KeyPointClassifier
-from model import PointHistoryClassifier
 
 blank_array = [None for _ in range(42)]
 # hand_sign_id = 0
 
 keypoint_classifier = KeyPointClassifier()
-# pre_processed_landmark_list = blank_array
+pre_processed_landmark_list = blank_array 
 
 def sendInput(pre_processed_landmark_list):
     # Hand sign classification
@@ -34,6 +33,7 @@ def sendInput(pre_processed_landmark_list):
         return
     else:
         blynk.virtual_write(1, hand_sign_id)
+        return hand_sign_id
 
 
     
@@ -96,22 +96,12 @@ def main():
         min_tracking_confidence=min_tracking_confidence,
     )
 
-
-    point_history_classifier = PointHistoryClassifier()
-
     # Read labels ###########################################################
     with open('model/keypoint_classifier/keypoint_classifier_label.csv',
               encoding='utf-8-sig') as f:
         keypoint_classifier_labels = csv.reader(f)
         keypoint_classifier_labels = [
             row[0] for row in keypoint_classifier_labels
-        ]
-    with open(
-            'model/point_history_classifier/point_history_classifier_label.csv',
-            encoding='utf-8-sig') as f:
-        point_history_classifier_labels = csv.reader(f)
-        point_history_classifier_labels = [
-            row[0] for row in point_history_classifier_labels
         ]
 
     # FPS Measurement ########################################################
@@ -130,9 +120,11 @@ def main():
     print("Program running")
     print("Press Ctrl+C to exit")
     
+    pre_processed_landmark_list = blank_array
+    
     while True:
         blynk.run()
-        # timer.run()
+        # timer.run(pre_processed_landmark_list)
         
         fps = cvFpsCalc.get()
 
@@ -174,19 +166,7 @@ def main():
                 logging_csv(number, mode, pre_processed_landmark_list,
                             pre_processed_point_history_list)
 
-                sendInput(pre_processed_landmark_list)
-
-                # Finger gesture classification
-                finger_gesture_id = 0
-                point_history_len = len(pre_processed_point_history_list)
-                if point_history_len == (history_length * 2):
-                    finger_gesture_id = point_history_classifier(
-                        pre_processed_point_history_list)
-
-                # Calculates the gesture IDs in the latest detection
-                finger_gesture_history.append(finger_gesture_id)
-                most_common_fg_id = Counter(
-                    finger_gesture_history).most_common()
+                hand_sign_id = sendInput(pre_processed_landmark_list)
 
                 # Drawing part
                 debug_image = draw_bounding_rect(use_brect, debug_image, brect)
@@ -195,8 +175,8 @@ def main():
                     debug_image,
                     brect,
                     handedness,
-                    "KONG",
-                    point_history_classifier_labels[most_common_fg_id[0][0]],
+                    keypoint_classifier_labels[hand_sign_id],
+                    "KONG" 
                 )
         else:
             point_history.append([0, 0])

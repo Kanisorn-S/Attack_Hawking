@@ -82,9 +82,9 @@ class BlynkTimer:
         timer.disable()
         return timerId
 
-    def run(self):
+    def run(self, input):
         '''Polls timers'''
-        [t.run() for t in self.timers]
+        [t.run(input) for t in self.timers]
 
 
 class Timer:
@@ -119,11 +119,11 @@ class Timer:
         self.interval = value
         self.enable()
 
-    def run(self):
+    def run(self, input):
         '''Runs function if interval has passed'''
         if not self.enabled:
             return
         now = time.time()
         if now - self.start_time > self.interval:
-            self.func()
+            self.func(input)
             self._handle_post_run()

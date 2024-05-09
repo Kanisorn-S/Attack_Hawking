@@ -24,6 +24,10 @@ blank_array = [None for _ in range(42)]
 
 keypoint_classifier = KeyPointClassifier()
 pre_processed_landmark_list = blank_array 
+global score
+score = 0
+global increment_score
+increment_score = 0
 
 def sendInput(pre_processed_landmark_list):
     # Hand sign classification
@@ -38,10 +42,22 @@ def sendInput(pre_processed_landmark_list):
 
     
 BLYNK_AUTH = "Y2K5GmGI1MxgwPn_oQJZFnHRGZO4B1JG"
-
+    
 # Initialize Blynk
 blynk = Blynk(BLYNK_AUTH)
 timer = BlynkTimer()
+
+    
+@blynk.on("V0")
+def v0_write_handler(value):
+    print(value[0])
+    global score
+    score += int(value[0])
+    
+@blynk.on("connected")
+def blynk_connected():
+    print("Updating V0 values from the server...")
+    blynk.sync_virtual(0)
 
 timer.set_interval(1, sendInput)
 
@@ -124,6 +140,7 @@ def main():
     
     while True:
         blynk.run()
+        print("Score is " + str(score))
         # timer.run(pre_processed_landmark_list)
         
         fps = cvFpsCalc.get()

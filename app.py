@@ -195,6 +195,7 @@ def main():
                     keypoint_classifier_labels[hand_sign_id],
                     "KONG" 
                 )
+                debug_image = draw_outline(debug_image)
         else:
             point_history.append([0, 0])
 
@@ -320,7 +321,14 @@ def logging_csv(number, mode, landmark_list, point_history_list):
             writer.writerow([number, *point_history_list])
     return
 
-
+def draw_outline(image):
+    cv.line(image, (0,0), (0, image.size), (0, 255, 0), 20)
+    cv.line(image, (0,0), (image.size, 0), (0, 255, 0), 20)
+    cv.line(image, (0, 540), (960, 540), (0, 255, 0), 20)
+    cv.line(image, (960, 0), (960, 540), (0, 255, 0), 20)
+    return image
+    
+    
 def draw_landmarks(image, landmark_point):
     if len(landmark_point) > 0:
         # Thumb

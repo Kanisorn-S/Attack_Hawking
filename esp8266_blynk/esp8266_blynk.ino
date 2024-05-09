@@ -71,23 +71,23 @@ void loop() {
 
     Serial.print("Current input status is ");
     Serial.println(input);
-    if (input == 0) {
+    if (input == 1) {
       stop();
-    } else if (input == 1) {
-      forward();
-    } else if (input == 2) {
-      backward();
-    } else if (input == 3) {
-      left();
     } else if (input == 4) {
-      right();
-    } else if (input == 5) {
-      cw();
-    } else if (input == 6) {
-      ccw();
+      forward();
+    } else if (input == 0) {
+      backward();
     } else if (input == 7) {
-      aimUp();
+      left();
     } else if (input == 8) {
+      right();
+    } else if (input == 6) {
+      cw();
+    } else if (input == 5) {
+      ccw();
+    } else if (input == 3) {
+      aimUp();
+    } else if (input == 2) {
       aimDown();
     } else if (input == 9) {
       fire(5000);

@@ -34,9 +34,9 @@ void setup() {
 void loop() {
     Blynk.run();
     v1 = digitalRead(target1);
-    v2 = digitalRead(target2);
-    v3 = digitalRead(target3);
-    v4 = digitalRead(target4);
+    v2 = digitalRead(target3);
+    v3 = digitalRead(target4);
+    v4 = digitalRead(target2);
     Serial.print("Target 1 is reading: ");
     Serial.println(v1);
     Serial.print("Target 2 is reading: ");

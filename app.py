@@ -28,6 +28,8 @@ global score
 score = 0
 global increment_score
 increment_score = 0
+global prev_score
+prev_score = 0
 
 def sendInput(pre_processed_landmark_list):
     # Hand sign classification
@@ -50,9 +52,21 @@ timer = BlynkTimer()
     
 @blynk.on("V0")
 def v0_write_handler(value):
+    blynk.sync_virtual(0)
     print(value[0])
-    global score
-    score += int(value[0])
+    # global prev_score
+    # print("previous score is: " + str(prev_score))
+    # print("value[0] is " + str(value[0]))
+    # new_score = value[0]
+    # old_score = prev_score
+    # if new_score == old_score:
+    #     print("same target hit!")
+    #     return 
+    # prev_score = value[0]
+    global increment_score
+    increment_score = value[0]
+    # global score
+    # score += int(value[0])
     
 @blynk.on("connected")
 def blynk_connected():
@@ -140,6 +154,14 @@ def main():
     
     while True:
         blynk.run()
+        # blynk.sync_virtual(0)
+        global prev_score
+        global score
+        if int(increment_score) == prev_score:
+            pass
+        else:
+            score += int(increment_score)
+            prev_score = int(increment_score)
         print("Score is " + str(score))
         # timer.run(pre_processed_landmark_list)
         

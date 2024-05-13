@@ -45,21 +45,22 @@ void loop() {
     Serial.println(v3);
     Serial.print("Target 4 is reading: ");
     Serial.println(v4);
-    if (v4 == 0) {
+    if (v4 == 1) {
         Blynk.virtualWrite(V0, 4);
         Serial.println("Hit target for 4 Points!");
-    } else if (v3 == 0) {
+    } else if (v3 == 1) {
         Blynk.virtualWrite(V0, 3);
         Serial.println("Hit target for 4 Points!");
-    } else if (v2 == 0) {
+    } else if (v2 == 1) {
         Blynk.virtualWrite(V0, 2);
         Serial.println("Hit target for 4 Points!");
-    } else if (v1 == 0) {
+    } else if (v1 == 1) {
         Blynk.virtualWrite(V0, 1);
         Serial.println("Hit target for 4 Points!");
-    } else {
-        Blynk.virtualWrite(V0, 0);
-        Serial.println("No target hit!");
     }
+    // } else {
+    //     Blynk.virtualWrite(V0, 0);
+    //     Serial.println("No target hit!");
+    // }
     Serial.println("------------------------------------------------");
 }

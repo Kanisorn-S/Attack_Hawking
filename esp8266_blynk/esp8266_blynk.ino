@@ -91,6 +91,8 @@ void loop() {
       aimDown();
     } else if (input == 9) {
       fire(5000);
+    } else if (input == 11) {
+      reset(5000);
     }
 }
 
@@ -215,6 +217,15 @@ void aimUp() {
 void aimDown() {
     Serial.println("Aiming down");
     if (servoState > mini_min) {
+      servoState--;
+      board.setPWM(gun, 0, servoState);
+    }
+}
+
+void aimDown(float duration) {
+    Serial.println("Reseting servo to starting position...");
+    float start_time = millis();
+    while (millis() - start_time < duration) {
       servoState--;
       board.setPWM(gun, 0, servoState);
     }

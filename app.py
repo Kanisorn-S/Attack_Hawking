@@ -579,9 +579,9 @@ def draw_point_history(image, point_history):
     return image
 
 def draw_score(image):
-    cv.putText(image, "Score:" + str(score), (800, 40), cv.FONT_HERSHEY_SIMPLEX,
+    cv.putText(image, "Score:" + str(score), (10, 80), cv.FONT_HERSHEY_SIMPLEX,
                1.0, (0, 0, 0), 4, cv.LINE_AA)
-    cv.putText(image, "Score:" + str(score), (800, 40), cv.FONT_HERSHEY_SIMPLEX,
+    cv.putText(image, "Score:" + str(score), (10, 80), cv.FONT_HERSHEY_SIMPLEX,
                1.0, (255, 255, 255), 2, cv.LINE_AA)
     return image
 

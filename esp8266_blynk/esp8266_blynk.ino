@@ -19,12 +19,15 @@ const int front_right = 14;
 const int back_left = 0;
 const int back_right = 1;
 const int gun = 3;
+const int bullet = 4;
 const int servo_max_cw = 98; // full throtle clockwise 
 const int servo_min_cw = 350; // min throtle counter-clockwise 
 const int servo_max_ccw = 630; // full throtle counter-clockwise 
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
 const int mini_min = 150;
 const int mini_max = 400;
+const int mini_spin = 60;
+int timer = 0;
 int servoState = mini_min;
 const int left_forward = servo_max_ccw; 
 const int left_backward = servo_max_cw;
@@ -230,6 +233,12 @@ void reset(float duration) {
 
 void fire(float duration) {
     Serial.println("Firing");
+    if (timer < 10) {
+      board.setPWM(bullet, 0, mini_spin);
+      timer++;
+    } else {
+      board.setPWM(bullet, 0, 0);
+    }
     digitalWrite(motor1Pin1, LOW);
     digitalWrite(motor1Pin2, HIGH);
     digitalWrite(motor2Pin1, HIGH);

@@ -30,7 +30,9 @@ void loop() {
     while (millis() - start_time < duration) {
         Serial.print("Current servo state: ");
         Serial.println(servo_state);
-        board.setPWM(3, 0, servo_state);
+        board.setPWM(0, 0, servo_state);
+        board.setPWM(1, 0, servo_state);
+        board.setPWM(2, 0, servo_state);
         servo_state--;
     }
     delay(10000000);

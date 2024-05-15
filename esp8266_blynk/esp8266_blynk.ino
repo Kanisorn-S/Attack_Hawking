@@ -14,17 +14,17 @@
 
 const char* ssid = "Kong";
 const char* pwd = "12345567";
-const int front_left = 0;
-const int front_right = 1;
-const int back_left = 15;
-const int back_right = 14;
-const int gun = 8;
+const int front_left = 15;
+const int front_right = 14;
+const int back_left = 0;
+const int back_right = 1;
+const int gun = 3;
 const int servo_max_cw = 98; // full throtle clockwise 
 const int servo_min_cw = 350; // min throtle counter-clockwise 
 const int servo_max_ccw = 630; // full throtle counter-clockwise 
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
 const int mini_min = 150;
-const int mini_max = 500;
+const int mini_max = 400;
 int servoState = mini_min;
 const int left_forward = servo_max_ccw; 
 const int left_backward = servo_max_cw;
@@ -224,11 +224,8 @@ void aimDown() {
 
 void reset(float duration) {
     Serial.println("Reseting servo to starting position...");
-    float start_time = millis();
-    while (millis() - start_time < duration) {
-      servoState--;
-      board.setPWM(gun, 0, servoState);
-    }
+    servoState--;
+    board.setPWM(gun, 0, servoState);
 }
 
 void fire(float duration) {

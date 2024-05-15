@@ -46,10 +46,10 @@ void right(float duration = 0);
 void cw(float duration = 0);
 void ccw(float duration = 0);
 
-int motor1Pin1 = 14;
-int motor1Pin2 = 12;
-int motor2Pin1 = 13;
-int motor2Pin2 = 15;
+int motor1Pin1 = 12;
+int motor1Pin2 = 14;
+int motor2Pin1 = 15;
+int motor2Pin2 = 13;
 
 void setup() {
     pinMode(motor1Pin1, OUTPUT);

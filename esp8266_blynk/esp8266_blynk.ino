@@ -33,6 +33,7 @@ const int left_forward = servo_max_ccw;
 const int left_backward = servo_max_cw;
 const int right_forward = servo_max_cw;
 const int right_backward = servo_max_ccw;
+bool isFirst = true;
 
 Adafruit_PWMServoDriver board = Adafruit_PWMServoDriver(0x40);
 
@@ -105,6 +106,7 @@ void stop() {
     board.setPWM(front_right, 0, 0);
     board.setPWM(back_left, 0, 0);
     board.setPWM(back_right, 0, 0);
+    isFirst = true;
 }
 
 void forward(float duration) {
@@ -114,6 +116,7 @@ void forward(float duration) {
     board.setPWM(front_right, 0, right_forward);
     board.setPWM(back_left, 0, left_forward);
     board.setPWM(back_right, 0, right_forward);
+    isFirst = true;
     if (duration == 0) {
       return;
     }
@@ -131,6 +134,7 @@ void backward(float duration) {
     board.setPWM(front_right, 0, right_backward);
     board.setPWM(back_left, 0, left_backward);
     board.setPWM(back_right, 0, right_backward);
+    isFirst = true;
     if (duration == 0) {
       return;
     }
@@ -148,6 +152,7 @@ void left(float duration) {
     board.setPWM(front_right, 0, right_forward);
     board.setPWM(back_left, 0, left_forward);
     board.setPWM(back_right, 0, right_backward);
+    isFirst = true;
     if (duration == 0) {
       return;
     }
@@ -165,6 +170,7 @@ void right(float duration) {
     board.setPWM(front_right, 0, right_backward);
     board.setPWM(back_left, 0, left_backward);
     board.setPWM(back_right, 0, right_forward);
+    isFirst = true;
     if (duration == 0) {
       return;
     }
@@ -182,6 +188,7 @@ void cw(float duration) {
     board.setPWM(front_right, 0, right_backward);
     board.setPWM(back_left, 0, left_forward);
     board.setPWM(back_right, 0, right_backward);
+    isFirst = true;
     if (duration == 0) {
       return;
     }
@@ -199,6 +206,7 @@ void ccw(float duration) {
     board.setPWM(front_right, 0, right_forward);
     board.setPWM(back_left, 0, left_backward);
     board.setPWM(back_right, 0, right_forward);
+    isFirst = true;
     if (duration == 0) {
       return;
     }
@@ -215,6 +223,7 @@ void aimUp() {
       servoState++;
       board.setPWM(gun, 0, servoState);
     }
+    isFirst = true;
 }
 
 void aimDown() {
@@ -223,21 +232,25 @@ void aimDown() {
       servoState--;
       board.setPWM(gun, 0, servoState);
     }
+    isFirst = true;
 }
 
 void reset(float duration) {
     Serial.println("Reseting servo to starting position...");
     servoState--;
     board.setPWM(gun, 0, servoState);
+    isFirst = true;
 }
 
 void fire(float duration) {
     Serial.println("Firing");
-    if (timer < 10) {
+    if (timer < 10 && isFirst) {
       board.setPWM(bullet, 0, mini_spin);
       timer++;
     } else {
       board.setPWM(bullet, 0, 0);
+      timer = 0;
+      isFirst = false;
     }
     digitalWrite(motor1Pin1, LOW);
     digitalWrite(motor1Pin2, HIGH);

@@ -26,11 +26,11 @@ const int servo_max_ccw = 630; // full throtle counter-clockwise
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
 const int mini_min = 100;
 const int mini_bullet_max = 400;
-const int mini_max = 200;
+const int mini_max = 230;
 const int mini_spin = 300;
 const int mini_spin_back = 400;
 int timer = 0;
-int servoState = mini_min;
+int servoState = mini_max;
 const int left_forward = servo_max_ccw; 
 const int left_backward = servo_max_cw;
 const int right_forward = servo_max_cw;
@@ -86,9 +86,9 @@ void loop() {
     Serial.print("Current firing state is ");
     Serial.println(firing);
 
-    if (firing == 1) {
-      fire(5000);
-    }
+    // if (firing == 1) {
+    //   fire(5000);
+    // }
     if (input == 1) {
       stop();
     } else if (input == 4) {
@@ -110,7 +110,10 @@ void loop() {
     } else if (input == 9) {
       fire(5000);
     } else if (input == 11) {
+      Serial.print("Current open: ");
+      Serial.println(opened);
       stop_fire();
+      reload();
     }
 }
 
@@ -272,8 +275,11 @@ void fire(float duration) {
       delay(2000);
       if (!opened) {
         board.setPWM(bullet, 0, mini_spin);
-        delay(300);
+        delay(50);
+        board.setPWM(bullet, 0, mini_spin_back);
+        delay(50);
         board.setPWM(bullet, 0, 0);
+        // opened = true;
       }
 
       // delay(duration);
@@ -294,4 +300,14 @@ void stop_fire() {
   digitalWrite(motor1Pin2, LOW);
   digitalWrite(motor2Pin1, LOW);
   digitalWrite(motor2Pin2, LOW);
+}
+
+void reload() {
+  if (!opened) {
+    return;
+  }
+  board.setPWM(bullet, 0, mini_spin);
+  delay(350);
+  board.setPWM(bullet, 0, 0);
+  opened = false;
 }

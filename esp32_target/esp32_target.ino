@@ -52,10 +52,10 @@ void loop() {
         Blynk.virtualWrite(V0, 3);
         Serial.println("Hit target for 4 Points!");
     } else if (v2 == 1) {
-        Blynk.virtualWrite(V0, 2);
+        Blynk.virtualWrite(V0, 1);
         Serial.println("Hit target for 4 Points!");
     } else if (v1 == 1) {
-        Blynk.virtualWrite(V0, 1);
+        Blynk.virtualWrite(V0, 2);
         Serial.println("Hit target for 4 Points!");
     }
     // } else {

@@ -107,7 +107,7 @@ void loop() {
     } else if (input == 9) {
       fire(5000);
     } else if (input == 11) {
-      reset(5000);
+      stop_fire();
     }
 }
 
@@ -263,15 +263,22 @@ void fire(float duration) {
       digitalWrite(motor1Pin2, HIGH);
       digitalWrite(motor2Pin1, HIGH);
       digitalWrite(motor2Pin2, LOW);
-      delay(duration);
-      digitalWrite(motor1Pin1, LOW);
-      digitalWrite(motor1Pin2, LOW);
-      digitalWrite(motor2Pin1, LOW);
-      digitalWrite(motor2Pin2, LOW);
+      // delay(duration);
+      // digitalWrite(motor1Pin1, LOW);
+      // digitalWrite(motor1Pin2, LOW);
+      // digitalWrite(motor2Pin1, LOW);
+      // digitalWrite(motor2Pin2, LOW);
     } else {
       Serial.println("Locked");
       return;
     }
     
 
+}
+
+void stop_fire() {
+  digitalWrite(motor1Pin1, LOW);
+  digitalWrite(motor1Pin2, LOW);
+  digitalWrite(motor2Pin2, LOW);
+  digitalWrite(motor2Pin2, LOW);
 }

@@ -30,6 +30,8 @@ global increment_score
 increment_score = 0
 global prev_score
 prev_score = 0
+global color
+color = (0, 255, 0)
 
 def sendInput(pre_processed_landmark_list):
     # Hand sign classification
@@ -206,6 +208,11 @@ def main():
                             pre_processed_point_history_list)
 
                 hand_sign_id = sendInput(pre_processed_landmark_list)
+                if hand_sign_id == 9:
+                    global color
+                    color = (0, 0, 255)
+                else:
+                    color = (0, 255, 0)
 
                 # Drawing part
                 debug_image = draw_bounding_rect(use_brect, debug_image, brect)
@@ -345,10 +352,10 @@ def logging_csv(number, mode, landmark_list, point_history_list):
     return
 
 def draw_outline(image):
-    cv.line(image, (0,0), (0, image.size), (0, 255, 0), 20)
-    cv.line(image, (0,0), (image.size, 0), (0, 255, 0), 20)
-    cv.line(image, (0, 540), (960, 540), (0, 255, 0), 20)
-    cv.line(image, (960, 0), (960, 540), (0, 255, 0), 20)
+    cv.line(image, (0,0), (0, image.size), color, 20)
+    cv.line(image, (0,0), (image.size, 0), color, 20)
+    cv.line(image, (0, 540), (960, 540), color, 20)
+    cv.line(image, (960, 0), (960, 540), color, 20)
     return image
     
     

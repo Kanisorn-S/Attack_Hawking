@@ -19,14 +19,14 @@ const int front_right = 14;
 const int back_left = 0;
 const int back_right = 1;
 const int gun = 3;
-const int bullet = 4;
+const int bullet = 8;
 const int servo_max_cw = 98; // full throtle clockwise 
 const int servo_min_cw = 350; // min throtle counter-clockwise 
 const int servo_max_ccw = 630; // full throtle counter-clockwise 
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
 const int mini_min = 150;
 const int mini_max = 400;
-const int mini_spin = 60;
+const int mini_spin = 400;
 int timer = 0;
 int servoState = mini_min;
 const int left_forward = servo_max_ccw; 
@@ -38,6 +38,11 @@ bool isFirst = true;
 Adafruit_PWMServoDriver board = Adafruit_PWMServoDriver(0x40);
 
 int input;
+int firing;
+
+BLYNK_WRITE(V2) {
+  firing = param.asInt();
+}
 
 BLYNK_WRITE(V1) {
   input = param.asInt();
@@ -75,6 +80,12 @@ void loop() {
 
     Serial.print("Current input status is ");
     Serial.println(input);
+    Serial.print("Current firing state is ");
+    Serial.println(firing);
+
+    if (firing == 1) {
+      fire(5000);
+    }
     if (input == 1) {
       stop();
     } else if (input == 4) {
@@ -243,23 +254,24 @@ void reset(float duration) {
 }
 
 void fire(float duration) {
-    Serial.println("Firing");
-    if (timer < 10 && isFirst) {
-      board.setPWM(bullet, 0, mini_spin);
-      timer++;
+    if (isFirst) {
+      Serial.println("Firing");
+      board.setPWM(bullet, 0, mini_max);
+      delay(2000);
+      board.setPWM(bullet, 0, mini_min);
+      digitalWrite(motor1Pin1, LOW);
+      digitalWrite(motor1Pin2, HIGH);
+      digitalWrite(motor2Pin1, HIGH);
+      digitalWrite(motor2Pin2, LOW);
+      delay(duration);
+      digitalWrite(motor1Pin1, LOW);
+      digitalWrite(motor1Pin2, LOW);
+      digitalWrite(motor2Pin1, LOW);
+      digitalWrite(motor2Pin2, LOW);
     } else {
-      board.setPWM(bullet, 0, 0);
-      timer = 0;
-      isFirst = false;
+      Serial.println("Locked");
+      return;
     }
-    digitalWrite(motor1Pin1, LOW);
-    digitalWrite(motor1Pin2, HIGH);
-    digitalWrite(motor2Pin1, HIGH);
-    digitalWrite(motor2Pin2, LOW);
-    delay(duration);
-    digitalWrite(motor1Pin1, LOW);
-    digitalWrite(motor1Pin2, LOW);
-    digitalWrite(motor2Pin1, LOW);
-    digitalWrite(motor2Pin2, LOW);
+    
 
 }

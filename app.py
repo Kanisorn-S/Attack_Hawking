@@ -40,7 +40,8 @@ def sendInput(pre_processed_landmark_list):
     if pre_processed_landmark_list == blank_array:
         return
     else:
-        blynk.virtual_write(1, hand_sign_id)
+        if hand_sign_id != 9:
+            blynk.virtual_write(1, hand_sign_id)
         return hand_sign_id
 
 
@@ -211,8 +212,10 @@ def main():
                 if hand_sign_id == 9:
                     global color
                     color = (0, 0, 255)
+                    blynk.virtual_write(2, 1)
                 else:
                     color = (0, 255, 0)
+                    blynk.virtual_write(2, 0)
 
                 # Drawing part
                 debug_image = draw_bounding_rect(use_brect, debug_image, brect)

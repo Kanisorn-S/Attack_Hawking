@@ -25,7 +25,7 @@ const int servo_min_cw = 350; // min throtle counter-clockwise
 const int servo_max_ccw = 630; // full throtle counter-clockwise 
 const int servo_min_ccw = 380; // min throtle counter-clockwise 
 const int mini_min = 150;
-const int mini_max = 400;
+const int mini_max = 200;
 const int mini_spin = 400;
 int timer = 0;
 int servoState = mini_min;
@@ -228,7 +228,7 @@ void ccw(float duration) {
     stop();
 }
 
-void aimUp() {
+void aimDown() {
     Serial.println("Aiming up");
     if (servoState < mini_max) {
       servoState++;
@@ -237,7 +237,7 @@ void aimUp() {
     isFirst = true;
 }
 
-void aimDown() {
+void aimUp() {
     Serial.println("Aiming down");
     if (servoState > mini_min) {
       servoState--;

@@ -41,7 +41,7 @@ def sendInput(pre_processed_landmark_list):
         return
     else:
         if hand_sign_id != 9:
-            blynk.virtual_write(1, hand_sign_id)
+             blynk.virtual_write(1, hand_sign_id)
         return hand_sign_id
 
 

@@ -37,6 +37,7 @@ const int right_forward = servo_max_cw;
 const int right_backward = servo_max_ccw;
 bool isFirst = true;
 bool opened = false;
+bool first_fire = true;
 
 Adafruit_PWMServoDriver board = Adafruit_PWMServoDriver(0x40);
 
@@ -90,22 +91,31 @@ void loop() {
     //   fire(5000);
     // }
     if (input == 1) {
+      stop_fire();
       stop();
     } else if (input == 4) {
+      stop_fire();
       forward();
     } else if (input == 0) {
+      stop_fire();
       backward();
     } else if (input == 7) {
-      left();
-    } else if (input == 8) {
+      stop_fire();
       right();
+    } else if (input == 8) {
+      stop_fire();
+      left();
     } else if (input == 6) {
+      stop_fire();
       cw();
     } else if (input == 5) {
+      stop_fire();
       ccw();
     } else if (input == 3) {
+      stop_fire();
       aimUp();
     } else if (input == 2) {
+      stop_fire();
       aimDown();
     } else if (input == 9) {
       fire(5000);
@@ -113,7 +123,7 @@ void loop() {
       Serial.print("Current open: ");
       Serial.println(opened);
       stop_fire();
-      reload();
+      // reload();
     }
 }
 
@@ -260,6 +270,7 @@ void reset(float duration) {
 }
 
 void fire(float duration) {
+    stop();
     if (isFirst) {
       Serial.println("Firing");
       // board.setPWM(bullet, 0, mini_bullet_max);
@@ -268,16 +279,19 @@ void fire(float duration) {
       // board.setPWM(bullet, 0, mini_spin);
       // delay(300);
       // board.setPWM(bullet, 0, mini_spin_back);
-      digitalWrite(motor1Pin1, LOW);
-      digitalWrite(motor1Pin2, HIGH);
-      digitalWrite(motor2Pin1, HIGH);
-      digitalWrite(motor2Pin2, LOW);
+      if (first_fire) {
+        digitalWrite(motor1Pin1, LOW);
+        digitalWrite(motor1Pin2, HIGH);
+        digitalWrite(motor2Pin1, HIGH);
+        digitalWrite(motor2Pin2, LOW);
+        first_fire = false;
+      }
       delay(2000);
       if (!opened) {
         board.setPWM(bullet, 0, mini_spin);
-        delay(50);
+        delay(40);
         board.setPWM(bullet, 0, mini_spin_back);
-        delay(50);
+        delay(40);
         board.setPWM(bullet, 0, 0);
         // opened = true;
       }
@@ -300,6 +314,7 @@ void stop_fire() {
   digitalWrite(motor1Pin2, LOW);
   digitalWrite(motor2Pin1, LOW);
   digitalWrite(motor2Pin2, LOW);
+  first_fire = true;
 }
 
 void reload() {

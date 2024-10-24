@@ -18,25 +18,25 @@ While deciding what the control would be, a remote control was initially chosen 
 
 #### *Designing the robot*
 
-Initially, our design was supposed to use a ballista to shoot a circular projectile (See Fig. 6(a)), but after further research and the new requirement from the ID student, we chose to make a turret, using flywheel wheel cannon design, utilizing two DC motors and wheels (See Fig. 6(b)). The flywheel cannon will be set in vertical orientation. The projectile will be loaded from the top and will be using a foam ball. The tilt of the cannon will be controlled by a servo motor. The car design will be using Mecanum wheels driven by servo motors and the structure will be made using acrylic sheet. The robot will be powered by 4 AA batteries and lithium ion batteries. 
+Initially, our design was supposed to use a ballista to shoot a circular projectile (See Fig. 1(a)), but after further research and the new requirement from the ID student, we chose to make a turret, using flywheel wheel cannon design, utilizing two DC motors and wheels (See Fig. 1(b)). The flywheel cannon will be set in vertical orientation. The projectile will be loaded from the top and will be using a foam ball. The tilt of the cannon will be controlled by a servo motor. The car design will be using Mecanum wheels driven by servo motors and the structure will be made using acrylic sheet. The robot will be powered by 4 AA batteries and lithium ion batteries. 
 
-// pic
+![image](https://github.com/user-attachments/assets/1da0d872-4a1e-4f26-a630-66f96aaa732e)
 
-Fig. 6(a) Initial Design with Mounted Ballista
+Fig. 1(a) Initial Design with Mounted Ballista
 
-// pic
+![image](https://github.com/user-attachments/assets/ef37009c-e186-4e96-a12c-92212b4fe4fd)
 
-Fig. 6(b) New Design with Flywheel Cannon
+Fig. 1(b) New Design with Flywheel Cannon
 
 #### *Car body and Cannon design*
 
 The car is made using a 5mm acrylic sheet cut into a structural piece and bolted together in a 2 layer structure. The servo motors are also bolted in in this process. The Mecanum wheels are mounted to the servo motors using 3D printed connectors.
 
-// pic 
+The cannon is initially designed to be all 3d printed (See Fig. 2), the DC motors housing and micro servo housing is designed in the cannon structure. The cannon is designed to be 30 cm long in order to look like the design from ID as much as possible. But after testing the prototype, the pressure formed during firing prevented the ball from reaching the design momentum, so we changed the barrel to a smaller pvc pipe. 
 
-Fig. 7 3D Model of the Cannon and Base
-
-The cannon is initially designed to be all 3d printed (See Fig. 7), the DC motors housing and micro servo housing is designed in the cannon structure. The cannon is designed to be 30 cm long in order to look like the design from ID as much as possible. But after testing the prototype, the pressure formed during firing prevented the ball from reaching the design momentum, so we changed the barrel to a smaller pvc pipe. 
+![image](https://github.com/user-attachments/assets/9623b18f-f6fe-4516-80c2-9be42086629d)
+ 
+Fig. 2 3D Model of the Cannon and Base
 
 The base of the cannon was also supposed to be made using 3D print, but since there were time constraints, we remodeled the cannon base using 5 mm acrylic structure. The structure is made to carry the weight of the cannon and also house the servo motor for tilt. 
 
@@ -46,16 +46,16 @@ On the top part of the car structure the turret is mounted using five  3 cm  sta
 	
 The target is needed for the Attack Hawking to have a purpose. The target was initially just a large blank board with holes of different sizes drilled into it. Each hole will have a corresponding point for its size with smaller ones giving more points due to the difficulty. There would also be a net to catch the balls that were shot and to tally the points up afterwards.  
 
-// pic
+The initial design was scrapped due to its simplicity and a need for something interesting. We decided to create a target that is similar to ones from archery that when a ball hits will immediately add up the scores displayed on screen. When assembling the targets, we used DIY items which can be found anywhere to create them. They consist of ice-cream sticks, plastic straws, future board, colored paper and glue (See Fig. 3(a)). To detect the target being hit, an infrared sensor is placed behind the counter weight which will detect a change in distance whenever the target is hit. There are a total of 4 targets of different sizes (See Fig. 3(b)). These targets are then put in a box which is reused from our previous project, the automatic curtain and modified a little to suit the needs of this project. When everything is in place, we attach the breadboard and battery rack onto the walls and wire everything up. We also coded so that the same target cannot be hit twice and only score once until another is hit.
 
-Fig. 8(a) Early Prototype of New Target Design
+![image](https://github.com/user-attachments/assets/f8958a17-05de-4de2-9900-ff75829048cd)
 
-// pic
+Fig. 3(a) Early Prototype of New Target Design
 
-Fig. 8(b) New Target Design of Different Sizes
+![image](https://github.com/user-attachments/assets/5f7f72d0-6a00-4f73-aa8c-d9a1b91b7a31)
 
-The initial design was scrapped due to its simplicity and a need for something interesting. We decided to create a target that is similar to ones from archery that when a ball hits will immediately add up the scores displayed on screen. When assembling the targets, we used DIY items which can be found anywhere to create them. They consist of ice-cream sticks, plastic straws, future board, colored paper and glue (See Fig. 8(a)). To detect the target being hit, an infrared sensor is placed behind the counter weight which will detect a change in distance whenever the target is hit. There are a total of 4 targets of different sizes (See Fig. 8(b)). These targets are then put in a box which is reused from our previous project, the automatic curtain and modified a little to suit the needs of this project. When everything is in place, we attach the breadboard and battery rack onto the walls and wire everything up. We also coded so that the same target cannot be hit twice and only score once until another is hit.
-	
+Fig. 3(b) New Target Design of Different Sizes
+
 #### *Component Selection and Ordering*
 
 Informed by design iterations, components were selected, and orders were placed. Modifications were made during this stage due to budget constraints.
@@ -91,17 +91,17 @@ A typical keypoint classification notebook starts with an introduction outlining
 
 Training involves setting up loss functions, optimizers, and metrics, and running the model on preprocessed data while monitoring performance with validation data. After training, the model is evaluated on a separate test set to determine its accuracy and generalization capabilities, often visualized through confusion matrices or accuracy plots. Fine-tuning follows, adjusting hyperparameters or implementing techniques like dropout or batch normalization to enhance performance. Finally, the trained model is saved for integration into applications, such as using real-time video data for gesture recognition in the main application described in "app.py."
 
-In order for the model to train, we must provide it with enough data. We can achieve this by recording the coordinates of different landmarks (See Fig. 9), provided by MediaPipe’s hand solution, for different hand gestures along with an integer which is used to identify the hand gesture.
+In order for the model to train, we must provide it with enough data. We can achieve this by recording the coordinates of different landmarks (See Fig. 4), provided by MediaPipe’s hand solution, for different hand gestures along with an integer which is used to identify the hand gesture.
 
-// pic
+![image](https://github.com/user-attachments/assets/0035b974-6deb-40c7-85b7-55108d33c877)
 
-Fig. 9 Recording Landmarks’ Coordinates for a Hand Gesture
+Fig. 4 Recording Landmarks’ Coordinates for a Hand Gesture
 
-In the model development phase, raw keypoints (See Fig. 10) are transformed into a machine learning-friendly format, often through normalization or calculating distances and angles between keypoints to maintain robustness against variations in image scale and orientation. Selecting the right model is crucial, with options ranging from convolutional neural networks (CNNs) for image-based analysis to simpler architectures for coordinate inputs. Training involves adjusting model weights through backpropagation, using a loss function to minimize errors between predicted and actual gesture labels.
+In the model development phase, raw keypoints (See Fig. 5) are transformed into a machine learning-friendly format, often through normalization or calculating distances and angles between keypoints to maintain robustness against variations in image scale and orientation. Selecting the right model is crucial, with options ranging from convolutional neural networks (CNNs) for image-based analysis to simpler architectures for coordinate inputs. Training involves adjusting model weights through backpropagation, using a loss function to minimize errors between predicted and actual gesture labels.
 
-// pic
+![image](https://github.com/user-attachments/assets/62ed9037-dc40-4a77-beb5-797fb00bec9d)
 
-Fig. 10 Raw Keypoints Stored as a CSV File
+Fig. 5 Raw Keypoints Stored as a CSV File
 
 The deployment and optimization stages focus on integrating the trained model into real-time applications and ensuring it operates efficiently. Techniques like model quantization or pruning enhance performance, while hyperparameter tuning and data augmentation improve the model’s accuracy and robustness. Advanced methods like transfer learning or ensemble learning are also used to leverage related pre-trained models or combine multiple model outputs, boosting overall accuracy and making the gesture recognition system more effective and responsive in practical applications.
 
@@ -111,15 +111,15 @@ Our initial plan is to use Blynk in order to communicate with both the ESP8266, 
 
 After looking into other communication protocols, we found out that the upgraded performance  in terms of speed when using other protocols, such as MQTT, is not as significant as we had hoped. Furthermore, many protocols that we have tried had compatibility problems with the PCA9685, which is used to control the servo motors. Due to the differences in the delay time of communication between Blynk and other communication methods being negligible, we decided to stick with our initial design of using Blynk to communicate and send data to and from our computer. Additionally, Blynk offers an easy to use interface along with a dashboard, available both in the web and on mobile devices, allowing for easy moderation and testing.
 
-We first begin by creating a new project on the Blynk website. By creating virtual pins within our newly created project, we are able to have channels for sending data and information from our computer to the ESP8266 and ESP32 boards, and vice versa. We then obtain the Blynk key and password which can be placed in our code in order to allow both the ESP8266 and ESP32 boards to have access to the virtual pins that we have created. For our virtual pins, we have created 2 pins: the state pin and the score pin. The state pin is used to store the current state of the car control, for this pin, the data flows from the computer to the ESP8266 which then controls the motors to the desired state. The state pin stores an integer between 0 and 11, representing 11 different states, which is each associated with a hand gesture (10 is not used). On the other hand, the score pin stores an integer between 1 and 4, which represents the 4 scores of the 4 targets available. Once a target is hit, the ESP32 board sends the score through the virtual pin, which is then received by the computer. Both virtual pins can be monitored and controlled through the customizable Blynk dashboard both on the Blynk web (See Fig. 11(a)) and Blynk application (See Fig. 11(b)).
+We first begin by creating a new project on the Blynk website. By creating virtual pins within our newly created project, we are able to have channels for sending data and information from our computer to the ESP8266 and ESP32 boards, and vice versa. We then obtain the Blynk key and password which can be placed in our code in order to allow both the ESP8266 and ESP32 boards to have access to the virtual pins that we have created. For our virtual pins, we have created 2 pins: the state pin and the score pin. The state pin is used to store the current state of the car control, for this pin, the data flows from the computer to the ESP8266 which then controls the motors to the desired state. The state pin stores an integer between 0 and 11, representing 11 different states, which is each associated with a hand gesture (10 is not used). On the other hand, the score pin stores an integer between 1 and 4, which represents the 4 scores of the 4 targets available. Once a target is hit, the ESP32 board sends the score through the virtual pin, which is then received by the computer. Both virtual pins can be monitored and controlled through the customizable Blynk dashboard both on the Blynk web (See Fig. 6(a)) and Blynk application (See Fig. 6(b)).
 
-// pic
+![image](https://github.com/user-attachments/assets/cd28c600-b817-4cd4-8462-9148388d39e0)
 
-Fig. 11(a) Blynk Web-based Dashboard
+Fig. 6(a) Blynk Web-based Dashboard
 
-// pic
+![image](https://github.com/user-attachments/assets/da4c0139-cd82-4967-8194-771ad9e1d73b)
 
-Fig. 11(b) Blynk App-based Dashboard
+Fig. 6(b) Blynk App-based Dashboard
 
 Finally, we utilize a python library[11] made for Blynk in order to integrate  the Blynk’s functionality within our hand gesture recognition program, which is written in python.
 
@@ -129,19 +129,19 @@ When deciding on the motors to be used in order to control the mecanum wheels, w
 
 For the firing mechanism, we have decided to use 2 dc motors due to their rotational speed and the L298N’s compatibility with our ESP8266. The two dc motors are connected to the L298N, which in turns is connected to the ESP8266. We can control the dc motors by controlling the many available digital pins on the ESP8266 board.
 
-For the omni-directional movement, the initial design is for a ballasta to be mounted on top of a car, however, the traditional movement of a 4-wheel car does not provide the player with enough direction to allow precise aiming of the ballista due to the limiting degree of maneuverability. By implementing mecanum wheels, the car can move in many directions. It can do 360 degree turns, slide sideways and has a very tight turning radius. By controlling the 4 different servos to turn in different directions at roughly the same speed (See Fig. 12), we were able to implement omni-directional movement without having to rely on complex kinematic models.
+For the omni-directional movement, the initial design is for a ballasta to be mounted on top of a car, however, the traditional movement of a 4-wheel car does not provide the player with enough direction to allow precise aiming of the ballista due to the limiting degree of maneuverability. By implementing mecanum wheels, the car can move in many directions. It can do 360 degree turns, slide sideways and has a very tight turning radius. By controlling the 4 different servos to turn in different directions at roughly the same speed (See Fig. 7), we were able to implement omni-directional movement without having to rely on complex kinematic models.
 
-// pic
+![image](https://github.com/user-attachments/assets/5e5f3505-3821-4750-8a47-e1e23a80f886)
 
-Fig. 12 Motions of Omnidirectional Platform
+Fig. 7 Motions of Omnidirectional Platform
 
 #### *Target Detection*
 
-For our DIY target design, we utilize the target’s pendulum-like motion in order to detect the target being hit. For each of the 4 targets, we placed an ir sensor behind the lower part of the target (See Fig. 13). When the target is stationary and not hit by the foam bullet, the IR sensor detects the bottom part of the target and outputs a HIGH digital signal to the ESP32 board. Conversely, when a target is hit, the lower part of the target swings forward and up, leaving the sensor’s detection area. This motion causes the sensor to send a LOW signal to the ESP32 board. 
+For our DIY target design, we utilize the target’s pendulum-like motion in order to detect the target being hit. For each of the 4 targets, we placed an ir sensor behind the lower part of the target (See Fig. 8). When the target is stationary and not hit by the foam bullet, the IR sensor detects the bottom part of the target and outputs a HIGH digital signal to the ESP32 board. Conversely, when a target is hit, the lower part of the target swings forward and up, leaving the sensor’s detection area. This motion causes the sensor to send a LOW signal to the ESP32 board. 
 
-// pic
+![image](https://github.com/user-attachments/assets/21ed648a-a635-49f6-be8b-6d24e56d51ae)
 
-Fig. 13 IR Sensors Behind the Target
+Fig. 8 IR Sensors Behind the Target
 
 For the logic within the ESP32 board, the board constantly checks for any LOW signal from the 4 IR sensors. When a LOW signal is detected, the board writes a number between 1 and 4 according to the target that has been hit to a virtual pin on Blynk. The main program on the computer would also constantly monitor the value stored in the virtual score pin, which is 0 by default. If the score pin obtains a value, the program increments the total score by that value. Additionally, the main program stores the most recent target hit, ensuring that if the same target were hit twice, the score would not be registered, making the game more challenging for the player.
 
